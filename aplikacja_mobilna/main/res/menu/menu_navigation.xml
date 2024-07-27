@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_profil"
+        android:icon="@drawable/baseline_person_24"
+        android:title="@string/profil" />
+
+    <item
+        android:id="@+id/navigation_konsultacje"
+        android:icon="@drawable/baseline_text_snippet_24"
+        android:title="@string/konsultacje" />
+
+    <item
+        android:id="@+id/navigation_chats"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="@string/fora" />
+
+    <item
+        android:id="@+id/navigation_subjects"
+        android:icon="@drawable/baseline_local_library_24"
+        android:title="@string/przedmioty" />
+
+    <item
+        android:id="@+id/navigation_teachers"
+        android:icon="@drawable/baseline_school_24"
+        android:title="@string/wykladowcy"/>
+</menu>

@@ -1,0 +1,49 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base theme. -->
+    <style name="Base.Theme.KonsultacjePlusV6" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- light theme -->
+        <item name="colorPrimary">#535353</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:datePickerDialogTheme">@style/DatePickerDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
+    </style>
+
+    <style name="DatePickerDialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:colorControlActivated">@color/blue</item>
+        <item name="android:selectableItemBackgroundBorderless">@color/blue</item>
+        <item name="android:colorControlHighlight">@color/blue</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/blue</item>
+        <item name="android:dayOfWeekBackground">@color/blue</item>
+        <item name="android:dayOfWeekTextAppearance">@color/blue</item>
+        <item name="android:headerMonthTextAppearance">@color/blue</item>
+        <item name="android:headerDayOfMonthTextAppearance">@color/blue</item>
+        <item name="android:headerYearTextAppearance">@color/blue</item>
+        <item name="android:yearListItemTextAppearance">@color/blue</item>
+        <item name="android:yearListSelectorColor">@color/blue</item>
+        <item name="android:calendarTextColor">@color/blue</item>
+
+    </style>
+
+    <style name="TimePickerDialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:colorControlActivated">@color/blue</item>
+        <item name="android:selectableItemBackgroundBorderless">@color/blue</item>
+        <item name="android:colorControlHighlight">@color/blue</item>
+    </style>
+
+    <style name="MyTimePickerStyle" parent="@android:style/Widget.Material.Light.TimePicker">
+        <item name="android:numbersTextColor">@color/blue</item>
+    </style>
+
+
+    <style name="Theme.KonsultacjePlusV6" parent="Base.Theme.KonsultacjePlusV6" />
+</resources>

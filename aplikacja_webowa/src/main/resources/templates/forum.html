@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje+</title>
+<link rel="stylesheet" href="/css/forum.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Page header -->
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+<div class="container-v2">
+    <div class="chat-container" th:data-nr-forum="${nrForum1}" id="chat-container">
+        <div th:each="wiadomosc : ${wiadomosci}" class="chat-message"
+             th:classappend="${wiadomosc.nadawca == #session.getAttribute('nadawca')} ? 'message-right' : 'message-left'">
+            <div class="sender-image"
+                 th:classappend="${wiadomosc.nadawca == #session.getAttribute('nadawca')} ? 'message-right' : 'message-left'">
+                <img th:if="${wiadomosc.zdjecieNadawcy != null}"
+                     th:src="${'data:image/jpeg;base64,' + wiadomosc.zdjecieNadawcy}"
+                     alt="Zdjecie Nadawcy" />
+                <img th:unless="${wiadomosc.zdjecieNadawcy == null && (wiadomosc.nr_prowadzacego != null || wiadomosc.nr_studenta != null)}"
+                     src="../images/default_man.png" alt="Profile Image" class="default-image" />
+                <img th:if="${wiadomosc.nr_prowadzacego != null}"
+                     th:with="prowadzacy = ${daoProwadzacy.get(wiadomosc.nr_prowadzacego)}"
+                     th:src="${prowadzacy != null && prowadzacy.Plec == 'K'} ? '../images/default_woman.png' : '../images/default_man.png'"
+                     alt="Profile Image" class="default-image"/>
+                <img th:if="${wiadomosc.nr_studenta != null}"
+                     th:with="student = ${daoStudenci.get(wiadomosc.nr_studenta)}"
+                     th:src="${student != null && student.Plec == 'K'} ? '../images/default_woman.png' : '../images/default_man.png'"
+                     alt="Profile Image" class="default-image"/>
+            </div>
+
+
+
+
+				<div class="message-content-wrapper">
+					<div class="message-bubble">
+						<div class="sender-name" th:text="${wiadomosc.nadawca}"></div>
+						<div class="message-content" th:text="${wiadomosc.tekst}"></div>
+						<div class="message-datetime"
+							th:text="${#temporals.format(wiadomosc.czas.toLocalDateTime(), 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="chat-input-container">
+		<form th:action="@{/chat/{nrForum2}(nrForum2=${nrForum1})}"
+			method="post">
+			<input type="text" name="tekst" placeholder="Wpisz wiadomość"
+				required>
+			<button type="submit">
+				<i class="fa-regular fa-paper-plane"></i>
+			</button>
+		</form>
+	</div>
+
+	<script th:inline="javascript">
+		function scrollToBottom() {
+			window.scrollTo(0, document.body.scrollHeight);
+		}
+		window.onload = scrollToBottom;
+		function updateChatContainer() {
+			$("#chat-container")
+					.load(window.location.href + " #chat-container");
+		}
+
+		updateChatContainer();
+
+		setInterval(updateChatContainer, 5000);
+	</script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje+</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<!--  Page header -->
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+
+		<div class="btn-konsultacje">
+			<a href="/konsultacje" class="edit-btn"><i
+				class="fa-solid fa-circle-arrow-left"></i> Lista twoich konsultacji</a>
+		</div>
+
+		<!-- Table -->
+		<table class="styled-table">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th>Nr</th>
+					<th>Data od</th>
+					<th>Data do</th>
+					<th>Realizacja</th>
+					<th>Szczegóły</th>
+					<th></th>
+				</tr>
+			</thead>
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="konsultacja : ${listKonsultacja}">
+					<td th:text="${konsultacja.nr_konsultacji}">Nr konsultacji</td>
+					<td th:text="${konsultacja.DataOd}">Data od</td>
+					<td th:text="${konsultacja.DataDo}">Data do</td>
+					<td
+						th:text="${daoPrzedmioty.getPrzedmiotAndSemestrByNrRealizacji(konsultacja.Nr_realizacji)}">Realizacja</td>
+					<td>
+						<div class="szczegoly-column">
+							<p>
+								<span>Pokój:</span> <span th:text="${konsultacja.Nr_pokoju}"></span>
+							</p>
+							<p>
+								<span
+									th:text="${konsultacja.Czy_online == 'T' ? 'Online' : 'Offline'}"></span>
+							</p>
+							<p>
+								<span
+									th:text="${konsultacja.Czy_publiczne == 'T' ? 'Publiczne' : 'Prywatne'}"></span>
+							</p>
+						</div>
+					</td>
+					<td>
+						<form method="post" action="/DolaczK">
+							<input type="hidden" name="nr_konsultacji"
+								th:value="${konsultacja.nr_konsultacji}" />
+							<button type="submit" class="edit-btn" title="Zapisz się">
+								<i class="fa-solid fa-plus"></i>
+							</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+		<script th:if="${error}">
+			var errorMessage = "[[${error}]]";
+			alert(errorMessage);
+		</script>
+		<div th:if="${error}" th:text="${error}" class="error-message"></div>
+	</div>
+</body>
+
+
+</html>

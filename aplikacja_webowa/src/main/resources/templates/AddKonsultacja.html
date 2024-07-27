@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Dodaj Konsultację</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="form-container">
+			<h2>Dodaj Konsultację</h2>
+
+
+			<form action="#" th:action="@{/newKonsultacja}"
+				th:object="${konsultacja}" method="post">
+				<!-- Table -->
+				<table class="styled-table">
+
+					<tr>
+						<td>Data od:</td>
+						<td><input type="datetime-local" class="form-control"
+							 name="dataOd" required></td>
+					</tr>
+
+					<tr>
+						<td>Data do:</td>
+						<td><input type="datetime-local" class="form-control"
+							 name="dataDo" required></td>
+					</tr>
+
+					<tr>
+						<td>Nr pokoju:</td>
+						<td><input type="number" class="form-control"
+							th:field="*{Nr_pokoju}" placeholder="np. 1A"></td>
+					</tr>
+
+					<tr>
+						<td>Realizacja:</td>
+						<td><select class="form-control" th:field="*{Nr_realizacji}">
+								<option value="">-- Wybierz realizację --</option>
+								<option th:each="realizacja : ${listRealizacja}"
+									th:value="${realizacja.Nr_realizacji}"
+									th:text="${przedmiotyDAO.getPrzedmiotAndSemestrByNrRealizacji(realizacja.nr_realizacji)}"></option>
+						</select></td>
+					</tr>
+
+
+					<tr>
+						<td>Online:</td>
+						<td><input type="radio" id="tak" name="czy_online" value="T"
+							th:field="*{czy_online}"> <label
+							style="display: inline-block;" for="tak">TAK</label> <input
+							type="radio" id="nie" name="czy_online" value="N"> <label
+							style="display: inline-block;" for="nie" th:field="*{czy_online}">NIE</label></td>
+					</tr>
+
+					<tr>
+						<td>Publiczne:</td>
+						<td><input type="radio" id="tak" name="czy_publiczne"
+							value="T" th:field="*{czy_publiczne}"> <label
+							style="display: inline-block;" for="tak">TAK</label> <input
+							type="radio" id="nie" name="czy_publiczne" value="N"> <label
+							style="display: inline-block;" for="nie"
+							th:field="*{czy_publiczne}">NIE</label></td>
+					</tr>
+
+
+					<!--  Button save -->
+					<tr>
+						<td colspan="2" style="text-align: center; height: 100px;"><button
+								type="submit" class="edit-btn">Zapisz</button> <!-- Button cancel -->
+							<input type="button" class="edit-btn" value="Anuluj"
+							onclick="window.location.href='/konsultacje'">
+					</tr>
+
+				</table>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

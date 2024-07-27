@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje+</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<!--  Page header -->
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="images/logo.png"
+				class="logo-img"> <img alt="" src="images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<form th:action="@{/searchPrzedmioty}" method="get">
+			<div class="search-container">
+				<input type="text" name="nazwaPrzedmiotu"
+					placeholder="Szukaj po nazwie">
+				<button type="submit"></button>
+			</div>
+		</form>
+		<div th:if="${not #strings.isEmpty(listPrzedmiot)}">
+			<p class="search-results">
+				Wyniki wyszukiwania dla "<span th:text="${nazwaPrzedmiotu}"></span>"
+			</p>
+		</div>
+		<div th:unless="${not #strings.isEmpty(listPrzedmiot)}">
+			<p class="search-results">
+				Brak wyników dla wyszukiwania "<span th:text="${nazwaPrzedmiotu}"></span>"
+			</p>
+		</div>
+		<!-- Table -->
+		<table class="styled-table">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th>Nr przedmiotu</th>
+					<th>Nazwa przedmiotu</th>
+					<th>Skrót przedmiotu</th>
+					<th>ECTS</th>
+				</tr>
+			</thead>
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="Przedmiot : ${listPrzedmiot}">
+					<td th:text="${Przedmiot.nr_przedmiotu}">Nr przedmiotu</td>
+					<td th:text="${Przedmiot.nazwa_przedmiotu}">Nazwa przedmiotu</td>
+					<td th:text="${Przedmiot.skrot_przedmiotu}">Skrót przedmiotu</td>
+					<td th:text="${Przedmiot.ECTS}">ECTS</td>
+				</tr>
+				<tr th:if="${listPrzedmiot.isEmpty()}">
+					<td colspan="4">Brak pasujących przedmiotów</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

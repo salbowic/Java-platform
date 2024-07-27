@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/konsultacjaDataOd_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="Od: "
+        app:layout_constraintEnd_toStartOf="@+id/konsultacjaListItemDataOd"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaOrganizator_layout"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemDataOd"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/data_od"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaOrganizator_layout" />
+
+    <TextView
+        android:id="@+id/konsultacjaDataDo_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="Do: "
+        app:layout_constraintEnd_toStartOf="@+id/konsultacjaListItemDataDo"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaListItemDataOd"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemDataDo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/data_do"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemDataOd" />
+
+    <LinearLayout
+        android:id="@+id/konsultacjaOrganizator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightgrey"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/konsultacjaOrganizator_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Organizator: "
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/konsultacjaListItemFullTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Tytuł"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="16sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/konsultacjaListItemImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/black"
+            android:layout_gravity="left"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/baseline_person_24" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/konsultacjaListItemNazwaPrzedmiotuSemestr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Nazwa przedmiotu"
+        android:layout_weight="1"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/konsultacjaDataOd_label"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaOrganizator_layout" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemNr_pokoju_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Nr pokoju: "
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaListItemNazwaPrzedmiotuSemestr" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemNr_pokoju"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/nr_pokoju"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/konsultacjaListItemNr_pokoju_label"
+        app:layout_constraintTop_toBottomOf="@+id/konsultacjaListItemNazwaPrzedmiotuSemestr" />
+
+
+    <TextView
+        android:id="@+id/konsultacjaListItemCzy_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/online"
+
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemNr_pokoju" />
+
+    <TextView
+        android:id="@+id/przecinek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text=", "
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/konsultacjaListItemCzy_online"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemNr_pokoju" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemCzy_publiczne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/publiczne"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/przecinek"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemNr_pokoju" />
+
+    <TextView
+        android:id="@+id/konsultacjaPytanie_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Pytanie: "
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemCzy_publiczne" />
+
+    <TextView
+        android:id="@+id/konsultacjaListItemPytanie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Pytanie"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaPytanie_label" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#C2C2C2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/konsultacjaListItemPytanie" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

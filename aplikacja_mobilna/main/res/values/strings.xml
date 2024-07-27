@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Konsultacje +</string>
+    <string name="przedmioty">Przedmioty</string>
+    <string name="wykladowcy">Wykładowcy</string>
+    <string name="fora">Fora</string>
+    <string name="konsultacje">Konsultacje</string>
+    <string name="profil">Profil</string>
+    <string name="nazwa_przedmiotu">Nazwa przedmiotu</string>
+    <string name="skrot">Skrót</string>
+    <string name="ects">ECTS</string>
+    <string name="przedmiot">Przedmiot</string>
+    <string name="imie">Imie</string>
+    <string name="tytul">Tytuł</string>
+    <string name="nazwisko">Nazwisko</string>
+    <string name="nr_telefonu">Nr tel.:</string>
+    <string name="email">Email:</string>
+    <string name="wykladowca">Wykładowca</string>
+    <string name="data_od">Data od</string>
+    <string name="data_do">Data do</string>
+    <string name="nr_pokoju">Nr pokoju</string>
+    <string name="online">Online</string>
+    <string name="publiczne">Publiczne</string>
+    <string name="pytanie">Pytanie</string>
+    <string name="nr_realizacji">Nr realizacji</string>
+    <string name="prowadzacy">Prowadzący</string>
+    <string name="realizacja">Realizacja</string>
+    <string name="data">Data</string>
+    <string name="nr_ind">Nr ind.:</string>
+    <string name="wyloguj_sie">Wyloguj się</string>
+    <string name="Zaloguj_sie">Zaloguj się</string>
+    <string name="zdjecie">Zdjęcie</string>
+    <string name="czas">Czas</string>
+    <string name="tekst">Tekst</string>
+    <string name="nadawca">Nadawca</string>
+</resources>

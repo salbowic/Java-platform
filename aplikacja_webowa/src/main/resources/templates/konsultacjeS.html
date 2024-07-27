@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje+</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<!--  Page header -->
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+
+		</div>
+	</div>
+	<div class="container"
+		style="display: block; height: 65vh; overflow-y: scroll;">
+		<!-- Table -->
+		<table class="styled-table" style="max-width: 1000px;">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th class="wide-column">Organizator</th>
+					<th>Data</th>
+					<th>Szczegóły</th>
+					<th>Realizacja</th>
+					<!--<th>Pytanie</th> -->
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="konsultacja : ${listKonsultacjaS}">
+					<td>
+						<div class="prowadzacy-info"
+							th:with="prowadzacy=${daoProwadzacy.get(konsultacja.nr_prowadzacego)}">
+							<div class="prowadzacy-details">
+								<div class="prowadzacy-details-left">
+									<img th:if="${prowadzacy.zdjecie != null}"
+										th:src="${'data:image/jpeg;base64,' + prowadzacy.Zdjecie64}"
+										alt="Zdjęcie Prowadzącego" class="default-image-list" /> <img
+										th:unless="${prowadzacy.zdjecie != null}"
+										th:src="${prowadzacy.plec == 'K' ? '../images/default_woman.png' : '../images/default_man.png'}"
+										alt="Profile Image" class="default-image-list" />
+								</div>
+								<div class="prowadzacy-details-right">
+									<div th:text="${prowadzacy.getFullTytul}"></div>
+									<div th:text="${prowadzacy.imie}"></div>
+									<div th:text="${prowadzacy.nazwisko}"></div>
+								</div>
+							</div>
+						</div>
+					</td>
+
+					<td>
+						<div>
+							Data od: <span
+								th:text="${#dates.format(konsultacja.DataOd, 'yyyy-MM-dd HH:mm')}"></span>
+						</div>
+						<div>
+							Data do: <span
+								th:text="${#dates.format(konsultacja.DataDo, 'yyyy-MM-dd HH:mm')}"></span>
+						</div>
+					</td>
+					<td>
+						<div class="szczegoly-column">
+							<p>
+								<span>Pokój</span> <span th:text="${konsultacja.Nr_pokoju}"></span>
+							</p>
+							<p>
+								<span
+									th:text="${konsultacja.Czy_online == 'T' ? 'Online' : 'Offline'}"></span>
+							</p>
+							<p>
+								<span
+									th:text="${konsultacja.Czy_publiczne == 'T' ? 'Publiczne' : 'Prywatne'}"></span>
+							</p>
+						</div>
+					<td
+						th:text="${daoPrzedmioty.getPrzedmiotAndSemestrByNrRealizacji(konsultacja.Nr_realizacji)}">Nr
+						realizacji</td>
+					</td>
+
+					<!--<td th:text="${konsultacja.Pytanie}">Pytanie</td> -->
+					<td>
+						<form method="post" action="/UsunK">
+							<input type="hidden" name="nr_konsultacji"
+								th:value="${konsultacja.nr_konsultacji}" /> <input
+								type="hidden" name="pytanieValue"
+								th:value="${konsultacja.Pytanie}" />
+							<button type="submit" class="sign-out-btn" title="Wypisz się">
+								<i class="fa-solid fa-right-from-bracket"></i>
+							</button>
+						</form>
+					</td>
+					<td>
+
+						<button type="button" class="edit-btn" title="Zadaj pytanie"
+							onclick="showEditForm(this)">
+							<i class="fa-solid fa-person-circle-question"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Edit Form -->
+
+	<div class="sign-up-konsultacja-btn">
+		<a href="/SignUpK" class="edit-btn">Zapisz się</a>
+	</div>
+
+	<div id="editForm" class="edit-form">
+		<form id="editPytanieForm" method="post" class="edit-form-pytanie"
+			action="/EditPytanie">
+			<input type="hidden" id="konsultacjaId" name="konsultacjaId" required>
+			<textarea placeholder="Zadaj pytanie..." class="pytanie-input"
+				id="pytanie" name="pytanie" maxlength="400" required></textarea>
+			<button type="button" class="edit-btn" onclick="savePytanie()">Wyślij
+				pytanie</button>
+		</form>
+	</div>
+
+
+	<script>
+		var selectedKonsultacjaId;
+
+		function showEditForm(button) {
+			var row = button.parentNode.parentNode;
+			var konsultacjaId = row
+					.querySelector('input[name="nr_konsultacji"]').value;
+			var pytanie = row.querySelector('input[name="pytanieValue"]').value;
+			selectedKonsultacjaId = konsultacjaId;
+			console.log("Selected konsultacjaId:", selectedKonsultacjaId);
+			document.getElementById("konsultacjaId").value = konsultacjaId;
+
+			var pytanieInput = document.getElementById('pytanie');
+			pytanieInput.value = pytanie;
+
+			document.getElementById("editPytanieForm").style.display = "block";
+		}
+
+		function savePytanie() {
+			var konsultacjaId = selectedKonsultacjaId;
+
+			if (isNaN(konsultacjaId)) {
+				alert("Invalid konsultacjaId value");
+				return;
+			}
+
+			var pytanie = document.getElementById('pytanie').value;
+
+			var form = document.getElementById("editPytanieForm");
+
+			// Update the value of the hidden input field
+			var hiddenInput = form.querySelector('input[name="konsultacjaId"]');
+			hiddenInput.value = konsultacjaId;
+
+			// Set the value of the pytanie input field directly
+			var pytanieInput = form.querySelector('textarea[name="pytanie"]');
+			pytanieInput.value = pytanie;
+
+			form.submit();
+		}
+	</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Profil</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="container" style="overflow-y: auto;">
+
+		<div class="profile-title">
+			<h2>Twój profil</h2>
+		</div>
+
+		<img th:if="${prowadzacyImage != null}"
+			th:src="@{'data:image/png;base64,' + ${prowadzacyImage}}"
+			alt="Profile Image from database" class="profile_image" /> <img
+			th:unless="${prowadzacy.zdjecie != null}"
+			th:if="${prowadzacy.Plec == 'K'}" src="../images/default_woman.png"
+			alt="Profile Image" class="profile_image" /> <img
+			th:unless="${prowadzacy.zdjecie != null}"
+			th:if="${prowadzacy.Plec == 'M'}" src="../images/default_man.png"
+			alt="Profile Image" class="profile_image" />
+
+		<!-- Table -->
+		<table class="styled-table">
+
+			<!-- Table header -->
+			<thead>
+
+				<tr>
+					<th>Tytuł</th>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+					<th>Email</th>
+					<th>Nr telefonu</th>
+				</tr>
+
+			</thead>
+
+			<!-- Table body -->
+			<tbody>
+				<tr>
+					<td th:text="${prowadzacy.getFullTytul}">Tytuł</td>
+					<td th:text="${prowadzacy.Imie}">Imię</td>
+					<td th:text="${prowadzacy.Nazwisko}">Nazwisko</td>
+					<td th:text="${prowadzacy.Email}">Email</td>
+					<td th:text="${prowadzacy.Nr_telefonu}">Nr telefonu</td>
+				</tr>
+				<tr>
+					<td colspan="5" style="text-align: center; height: 100px;"><a
+						th:href="@{'/editProwadzacy/' + ${prowadzacy.Email}}"
+						class="edit-btn">Edytuj</a></td>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+
+	<div class="white-label">
+		<h2>Powiadomienia:</h2>
+	</div>
+
+	<div class="notification-container">
+		<div th:each="konsultacja : ${konsultacje}" class="notification"
+			th:if="${konsultacja.Powiadomienie != null}">
+			<div class="notification-content">
+				<form th:action="@{/deleteNotification}" method="post">
+					<input type="hidden" name="nrKonsultacji"
+						th:value="${konsultacja.Nr_konsultacji}" />
+					<button type="submit" class="read-btn">
+						<i class="fa-sharp fa-solid fa-xmark"></i>
+					</button>
+				</form>
+				<span
+					th:utext="${#strings.replace(konsultacja.Powiadomienie, '|||', '<br>')}"></span>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

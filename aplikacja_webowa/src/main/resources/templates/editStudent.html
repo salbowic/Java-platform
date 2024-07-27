@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje +</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+						<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+						<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+						<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+						<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="profile-title">
+			<h2>Edytuj profil</h2>
+		</div>
+
+		<form action="#" th:action="@{/updateStudent}" th:object="${student}"
+			method="post" enctype="multipart/form-data">
+			<!-- Table -->
+			<table class="styled-table">
+
+				<tr>
+					<td>Imię</td>
+					<td th:text="${student.Imie}"></td>
+				</tr>
+
+				<tr>
+					<td>Nazwisko</td>
+					<td th:text="${student.Nazwisko}"></td>
+				</tr>
+
+				<tr>
+					<td>Email</td>
+					<td><input type="text" th:field="*{Email}"
+						class="form-control" style="width: 300px;"></td>
+				</tr>
+
+				<tr>
+					<td>Numer telefonu</td>
+					<td><input type="text" th:field="*{Nr_telefonu}"
+						class="form-control" style="width: 300px;"></td>
+				</tr>
+
+				<tr>
+					<td>Zdjęcie</td>
+					<td><input type="file" name="imageFile" accept="image/*"
+						class="image-upload" style="width: 300px;"> <label
+						for="deleteImage" class="delete-btn-label"> <input
+							type="checkbox" id="deleteImage" name="deleteImage"> Usuń
+					</label></td>
+				</tr>
+
+				<!-- Button save -->
+				<tr>
+					<td colspan="2" style="text-align: center;"><button
+							type="submit" class="edit-btn">Zapisz</button> <!-- Button cancel -->
+						<a href="/"><button type="button" class="edit-btn"
+								style="text-align: center;">Anuluj</button></a>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymelead.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+	charset="UTF-8">
+<title>Konsultacje+</title>
+<link rel="stylesheet" href="/css/homev2.css">
+<script src="https://kit.fontawesome.com/c18a46dce4.js"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="header">
+		<div class="side-nav">
+			<a href="#" class="logo"> <img alt="" src="../images/logo.png"
+				class="logo-img"> <img alt="" src="../images/logo-ikona.png"
+				class="logo-icon">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="/"><i class="fa-solid fa-user"></i>
+					<p>Profil</p></a></li>
+				<li><a href="/konsultacje"><i
+						class="fa-solid fa-person-chalkboard"></i>
+						<p>Konsultacje</p></a></li>
+				<li><a href="/fora"><i class="fa-solid fa-comments"></i>
+						<p>Fora</p></a></li>
+				<li><a href="/przedmioty"><i class="fa-solid fa-book"></i>
+					<p>Przedmioty</p></a></li>
+				<li><a href="/prowadzacy"><i class="fa-solid fa-user-tie"></i>
+					<p>Wykładowcy</p></a></li>
+				<li><a href="/logout"><i
+						class="fa-solid fa-right-from-bracket"></i>
+					<p>Wyloguj się</p></a></li>
+				<div class="active"></div>
+
+			</ul>
+
+		</div>
+	</div>
+	<div class="container" style="height: 95vh;">
+		<!-- Login form -->
+<div class="login-container">
+  <div class="login-header">
+    <img src="../images/logo.png" alt="Logo">
+  </div>
+  <div class="login-form-container">
+    <form method="post" action="/login" id="login-form">
+      <div class="form-group-login">
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" class="form-control-login">
+      </div>
+      <div class="form-group-login">
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" required class="form-control">
+      </div>
+      <div class="form-group-login" style="text-align: center;">
+        <button type="submit" class="edit-btn">Zaloguj się</button>
+      </div>
+      <p th:if="${error}" class="error-message">Niepoprawny email lub hasło.</p>
+    </form>
+  </div>
+</div>
+	</div>
+</body>
+</html>

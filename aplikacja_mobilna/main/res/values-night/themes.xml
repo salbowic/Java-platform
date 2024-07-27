@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base theme. -->
+    <style name="Base.Theme.KonsultacjePlusV6" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- dark theme -->
+        <item name="colorPrimary">@color/darkergrey</item>
+    </style>
+</resources>
